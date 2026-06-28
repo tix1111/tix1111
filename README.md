@@ -43,9 +43,15 @@
 11. [docs/development/business-rules.md](./docs/development/business-rules.md)：编号规则、财务科目、库存计算、定时任务和竞价规则。
 12. [docs/development/deployment-guide.md](./docs/development/deployment-guide.md)：部署与环境配置。
 13. [docs/development/reporting-requirements.md](./docs/development/reporting-requirements.md)：报表统计需求规格。
-14. [sql/schema.sql](./sql/schema.sql)：完整建表脚本。
-15. [sql/init.sql](./sql/init.sql)：SQL 初始化脚本（字典、密级、参数、初始账号）。
-16. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
+14. [docs/development/role-permission-matrix.md](./docs/development/role-permission-matrix.md)：角色权限矩阵。
+15. [docs/development/test-and-acceptance-plan.md](./docs/development/test-and-acceptance-plan.md)：测试与验收计划。
+16. [docs/development/data-governance-and-migration.md](./docs/development/data-governance-and-migration.md)：数据治理、迁移与发布方案。
+17. [docs/development/traceability-and-risk-register.md](./docs/development/traceability-and-risk-register.md)：需求追溯矩阵与风险清单。
+18. [docs/development/security-threat-model.md](./docs/development/security-threat-model.md)：安全威胁模型。
+19. [sql/schema.sql](./sql/schema.sql)：完整建表脚本。
+20. [sql/init.sql](./sql/init.sql)：SQL 初始化脚本（字典、密级、参数、初始账号）。
+21. [sql/seed_modules_menus_permissions.sql](./sql/seed_modules_menus_permissions.sql)：模块、菜单和权限点种子数据。
+22. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
 
 ## 查看说明
 
