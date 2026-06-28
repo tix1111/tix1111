@@ -20,7 +20,8 @@
 ├── REQUIREMENTS.md    # 英文文件名可查看版需求文档
 ├── 需求文档.md        # GitHub 可预览的需求文档目录页
 ├── docs/
-│   └── requirements/  # 按章节拆分的详细需求文档
+│   ├── requirements/  # 按章节拆分的详细需求文档
+│   └── development/   # 开发细则与页面到数据库映射
 └── 开发总结.md        # 开发记录、变更摘要与后续建议
 ```
 
@@ -29,7 +30,9 @@
 1. [REQUIREMENTS.md](./REQUIREMENTS.md)：英文文件名可查看版，适合在 GitHub、编辑器或本地系统中稳定打开。
 2. [需求文档.md](./需求文档.md)：GitHub 可预览目录页，包含详细章节链接。
 3. [docs/requirements](./docs/requirements)：按章节拆分的详细需求文档。
-4. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
+4. [docs/development/development-guidelines.md](./docs/development/development-guidelines.md)：开发细则，包含开发顺序、目录结构、API、页面、数据库、审批、附件、日志和涉密规范。
+5. [docs/development/page-database-mapping.md](./docs/development/page-database-mapping.md)：页面到数据库映射，包含页面、API、主表、关联表和权限点。
+6. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
 
 ## 查看说明
 
