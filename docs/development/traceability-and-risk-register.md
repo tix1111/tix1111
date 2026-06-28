@@ -11,6 +11,7 @@
 | REQ-005 | 项目管理 | `08-module-breakdown.md` | `database-schema-business.md` | 立项、计划、成本、文档闭环 |
 | REQ-006 | 运维管理 | `08-module-breakdown.md` | `api-specification.md`、`reporting-requirements.md` | SLA、工单、备件、知识库闭环 |
 | REQ-007 | 工程管理 | `08-module-breakdown.md` | `database-schema-business.md`、`engineering-construction-design.md` | 施工团队、进场、领料、日志、隐蔽验收、变更签证、验收交付 |
+| REQ-021 | 施工日志第三方分享 | `engineering-construction-design.md` | `api-specification.md`、`security-threat-model.md` | 分享有效期、撤销、脱敏、审计、涉密审批 |
 | REQ-008 | 协作团队管理 | `08-module-breakdown.md` | `database-schema-extended.md`、`role-permission-matrix.md` | 团队派工、执行记录、评价、结算 |
 | REQ-009 | 供应链采购管理 | `08-module-breakdown.md` | `api-specification.md`、`business-rules.md` | 询价、竞价、比价、一键下单 |
 | REQ-010 | 库存管理 | `08-module-breakdown.md` | `business-rules.md` | 库存流水计算，低库存预警 |
@@ -60,6 +61,9 @@
 | RISK-013 | 工程现场领料与实际使用不一致 | 中 | 领料、签收、使用、退料分开记录，验收前核对 | 开放 |
 | RISK-014 | 隐蔽工程未验收即覆盖 | 高 | 隐蔽验收为前置条件，不通过禁止进入下一阶段 | 开放 |
 | RISK-015 | 外部施工团队进入涉密现场未授权 | 高 | 施工团队进场前校验涉密授权和知悉范围 | 开放 |
+| RISK-016 | 施工日志分享链接泄露 | 高 | token hash、有效期、撤销、水印、审计、noindex、频率限制 | 开放 |
+| RISK-017 | 第三方通过施工日志看到成本或个人隐私 | 高 | 分享字段白名单、脱敏、默认禁止下载 | 开放 |
+| RISK-018 | 涉密工程日志未经审批分享 | 极高 | 涉密工程分享前必须走涉密外发/借阅审批 | 开放 |
 
 ## 4. 待确认事项
 

@@ -1233,6 +1233,48 @@ CREATE TABLE IF NOT EXISTS engineering_logs (
   INDEX idx_eng_date (engineering_id, log_date)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS engineering_log_shares (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  share_no        VARCHAR(32) NOT NULL UNIQUE,
+  token_hash      VARCHAR(255) NOT NULL,
+  share_title     VARCHAR(255),
+  date_from       DATE,
+  date_to         DATE,
+  viewer_name     VARCHAR(128),
+  viewer_org      VARCHAR(255),
+  viewer_phone    VARCHAR(20),
+  include_photos  TINYINT NOT NULL DEFAULT 1,
+  include_materials TINYINT NOT NULL DEFAULT 0,
+  include_issues  TINYINT NOT NULL DEFAULT 1,
+  allow_download  TINYINT NOT NULL DEFAULT 0,
+  mask_workers    TINYINT NOT NULL DEFAULT 1,
+  security_level  TINYINT NOT NULL DEFAULT 0,
+  expired_at      DATETIME NOT NULL,
+  revoked_at      DATETIME,
+  revoked_by      BIGINT UNSIGNED,
+  status          VARCHAR(16) NOT NULL DEFAULT 'active',
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at      DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_token_hash (token_hash),
+  INDEX idx_engineering (engineering_id),
+  INDEX idx_status_expired (status, expired_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS engineering_log_share_access_logs (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  share_id        BIGINT UNSIGNED NOT NULL,
+  action          VARCHAR(32) NOT NULL,
+  ip              VARCHAR(64) NOT NULL,
+  user_agent      VARCHAR(500),
+  request_path    VARCHAR(500),
+  result          TINYINT NOT NULL DEFAULT 1,
+  deny_reason     VARCHAR(255),
+  accessed_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_share_time (share_id, accessed_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS engineering_team_members (
   id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   engineering_id  BIGINT UNSIGNED NOT NULL,

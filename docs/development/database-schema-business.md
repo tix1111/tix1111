@@ -437,6 +437,54 @@ CREATE TABLE engineering_logs (
 ) ENGINE=InnoDB;
 ```
 
+## 15.1 工程施工日志分享 `engineering_log_shares`
+
+```sql
+CREATE TABLE engineering_log_shares (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  share_no        VARCHAR(32) NOT NULL UNIQUE COMMENT '分享编号',
+  token_hash      VARCHAR(255) NOT NULL COMMENT '分享 token hash，不保存明文',
+  share_title     VARCHAR(255) COMMENT '分享标题',
+  date_from       DATE COMMENT '日志开始日期',
+  date_to         DATE COMMENT '日志结束日期',
+  viewer_name     VARCHAR(128) COMMENT '第三方查看人名称',
+  viewer_org      VARCHAR(255) COMMENT '第三方单位',
+  viewer_phone    VARCHAR(20) COMMENT '第三方手机号（可选）',
+  include_photos  TINYINT NOT NULL DEFAULT 1,
+  include_materials TINYINT NOT NULL DEFAULT 0,
+  include_issues  TINYINT NOT NULL DEFAULT 1,
+  allow_download  TINYINT NOT NULL DEFAULT 0,
+  mask_workers    TINYINT NOT NULL DEFAULT 1 COMMENT '1隐藏施工人员敏感信息',
+  security_level  TINYINT NOT NULL DEFAULT 0 COMMENT '分享内容最高密级',
+  expired_at      DATETIME NOT NULL,
+  revoked_at      DATETIME,
+  revoked_by      BIGINT UNSIGNED,
+  status          VARCHAR(16) NOT NULL DEFAULT 'active' COMMENT 'active/expired/revoked/frozen',
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at      DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_token_hash (token_hash)
+) ENGINE=InnoDB;
+```
+
+## 15.2 工程施工日志分享访问记录 `engineering_log_share_access_logs`
+
+```sql
+CREATE TABLE engineering_log_share_access_logs (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  share_id        BIGINT UNSIGNED NOT NULL,
+  action          VARCHAR(32) NOT NULL COMMENT 'view/download/denied',
+  ip              VARCHAR(64) NOT NULL,
+  user_agent      VARCHAR(500),
+  request_path    VARCHAR(500),
+  result          TINYINT NOT NULL DEFAULT 1,
+  deny_reason     VARCHAR(255),
+  accessed_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_share_time (share_id, accessed_at)
+) ENGINE=InnoDB;
+```
+
 ## 16. 工程变更签证 `engineering_change_orders`
 
 ```sql

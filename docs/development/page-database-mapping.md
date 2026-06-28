@@ -106,6 +106,7 @@
 | 领料管理 | `/api/engineering/materials/request.php` | engineering_material_records | material_requests、inventory_records | engineering.material.request | 领料申请、出库、现场签收、退料 |
 | 过程跟踪 | `/api/engineering/progress/list.php` | engineering_logs | engineering_items | engineering.progress | 节点、照片、问题 |
 | 施工日志 | `/api/engineering/logs/submit.php` | engineering_logs | attachments | engineering.log.submit | 每日施工追溯 |
+| 日志分享 | `/api/engineering/logs/share-create.php` | engineering_log_shares | engineering_logs、engineering_log_share_access_logs | engineering.log.share | 第三方查看施工日志，按范围、有效期、脱敏和涉密规则控制 |
 | 材料设备 | `/api/engineering/materials/list.php` | engineering_material_records | inventory_records、materials | engineering.material.view | 库存负责实物流转 |
 | 质量安全 | `/api/engineering/quality/issues.php` | engineering_quality_issues | todo_items、attachments | engineering.quality.manage | 整改闭环 |
 | 隐蔽验收 | `/api/engineering/hidden-acceptance/submit.php` | engineering_hidden_acceptance | attachments、todo_items | engineering.hidden_acceptance | 覆盖前验收，不通过生成整改 |

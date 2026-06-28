@@ -572,6 +572,40 @@ order_dir     STRING asc / desc
 权限：engineering.log.submit
 ```
 
+### POST `/api/engineering/logs/share-create.php`
+
+```
+请求：engineering_id, date_from, date_to, viewer_name, viewer_org, viewer_phone, include_photos, include_materials, include_issues, allow_download, expired_at
+权限：engineering.log.share
+前置：工程负责人或授权管理员；若工程涉密，必须先通过涉密外发/借阅审批
+动作：生成随机 token，保存 token_hash，返回一次性明文分享链接
+```
+
+### GET `/api/engineering/logs/share-view.php`
+
+```
+请求：token
+权限：无需登录，但必须校验 token、有效期、状态、IP频率、涉密规则
+响应：第三方可见的施工日志数据（脱敏、按范围过滤）
+动作：记录 engineering_log_share_access_logs
+```
+
+### POST `/api/engineering/logs/share-revoke.php`
+
+```
+请求：share_id
+权限：engineering.log.share_revoke
+动作：撤销分享链接，更新 revoked_at 和 status=revoked
+```
+
+### GET `/api/engineering/logs/share-access-logs.php`
+
+```
+请求：share_id
+权限：engineering.log.share_audit
+响应：第三方访问记录
+```
+
 ### POST `/api/engineering/quality/rectify.php`
 
 ```
