@@ -516,11 +516,77 @@ order_dir     STRING asc / desc
 动作：可选发起立项审批
 ```
 
+### POST `/api/engineering/plans/save.php`
+
+```
+请求：engineering_id, scope, milestones[], team_ids[], material_needs[], risk_notes
+权限：engineering.plan.manage
+动作：保存施工计划，生成材料需求和团队派工草稿
+```
+
+### POST `/api/engineering/teams/assign.php`
+
+```
+请求：engineering_id, team_id, member_ids[], roles[], plan_start, plan_end
+权限：engineering.team.assign
+动作：从协作团队中选择施工队伍，生成工程团队记录和派工待办
+```
+
+### POST `/api/engineering/site-entry/confirm.php`
+
+```
+请求：engineering_id, entry_date, member_ids[], site_condition, customer_confirm_user, photos[]
+权限：engineering.site_entry
+前置：施工计划已确认、团队已派工、安全交底已完成
+动作：记录进场并将工程状态更新为 mobilized 或 constructing
+```
+
+### POST `/api/engineering/materials/request.php`
+
+```
+请求：engineering_id, items[{material_id, qty, usage}], required_date
+权限：engineering.material.request
+动作：生成物料申请，库存不足时进入供应链采购
+```
+
+### POST `/api/engineering/materials/sign.php`
+
+```
+请求：engineering_id, inventory_record_id, material_id, signed_qty, photos[], remark
+权限：engineering.material.sign
+动作：确认现场签收，回写工程材料记录
+```
+
+### POST `/api/engineering/materials/return.php`
+
+```
+请求：engineering_id, material_id, return_qty, reason, photos[]
+权限：engineering.material.return
+动作：生成退料记录，库存办理入库
+```
+
 ### POST `/api/engineering/logs/submit.php`
 
 ```
 请求：engineering_id, log_date, content, weather, workers, materials_used...
 权限：engineering.log.submit
+```
+
+### POST `/api/engineering/quality/rectify.php`
+
+```
+请求：issue_id, rectification, photos[], completed_at
+权限：engineering.quality.rectify
+动作：提交质量安全整改结果，等待复查
+```
+
+### POST `/api/engineering/hidden-acceptance/submit.php`
+
+```
+请求：engineering_id, stage_name, check_items[], result, photos[], acceptor_ids[]
+权限：engineering.hidden_acceptance
+前置：隐蔽工程覆盖前提交
+动作：生成隐蔽验收记录，不通过则生成整改待办
 ```
 
 ### POST `/api/engineering/changes/submit.php`
@@ -537,6 +603,15 @@ order_dir     STRING asc / desc
 请求：engineering_id, result, issues, corrective_actions
 权限：engineering.acceptance
 动作：创建验收记录 → 通过后可关闭工程
+```
+
+### POST `/api/engineering/settlements/submit.php`
+
+```
+请求：engineering_id, workload_items[], material_cost, team_cost, change_amount, total_amount
+权限：engineering.settlement
+前置：工程已验收，材料已签收或退料，变更签证已处理
+动作：生成工程结算，审批通过后进入财务付款或成本归集
 ```
 
 ## 12. 协作团队 `/api/collaboration/`

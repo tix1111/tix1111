@@ -1233,6 +1233,77 @@ CREATE TABLE IF NOT EXISTS engineering_logs (
   INDEX idx_eng_date (engineering_id, log_date)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS engineering_team_members (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  team_id         BIGINT UNSIGNED,
+  member_id       BIGINT UNSIGNED,
+  employee_id     BIGINT UNSIGNED,
+  role            VARCHAR(32) NOT NULL,
+  skill_tags      TEXT,
+  entry_status    VARCHAR(16) NOT NULL DEFAULT 'pending',
+  entered_at      DATETIME,
+  exited_at       DATETIME,
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at      DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_eng_member (engineering_id, member_id, employee_id),
+  INDEX idx_eng (engineering_id),
+  INDEX idx_team (team_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS engineering_site_entries (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  entry_date      DATETIME NOT NULL,
+  member_ids      TEXT,
+  site_condition  TEXT,
+  safety_briefing TINYINT NOT NULL DEFAULT 0,
+  customer_confirm_user VARCHAR(128),
+  photo_ids       TEXT,
+  remark          TEXT,
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_eng (engineering_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS engineering_quality_issues (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  issue_no        VARCHAR(32) NOT NULL UNIQUE,
+  issue_type      VARCHAR(32) NOT NULL,
+  severity        VARCHAR(16) NOT NULL,
+  description     TEXT NOT NULL,
+  responsible_id  BIGINT UNSIGNED,
+  deadline        DATE,
+  rectification   TEXT,
+  review_result   VARCHAR(16),
+  reviewer_id     BIGINT UNSIGNED,
+  reviewed_at     DATETIME,
+  status          VARCHAR(16) NOT NULL DEFAULT 'open',
+  photo_ids       TEXT,
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at      DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_eng_status (engineering_id, status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS engineering_hidden_acceptance (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  stage_name      VARCHAR(128) NOT NULL,
+  check_items     JSON NOT NULL,
+  result          VARCHAR(16) NOT NULL,
+  acceptor_ids    TEXT,
+  photo_ids       TEXT,
+  issues          TEXT,
+  rectification_required TINYINT NOT NULL DEFAULT 0,
+  reviewed_at     DATETIME,
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_eng (engineering_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS engineering_material_records (
   id             BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   engineering_id BIGINT UNSIGNED NOT NULL,
@@ -1265,6 +1336,27 @@ CREATE TABLE IF NOT EXISTS engineering_change_orders (
   updated_by     BIGINT UNSIGNED,
   updated_at     DATETIME ON UPDATE CURRENT_TIMESTAMP,
   deleted_at     DATETIME
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS engineering_settlements (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  settlement_no   VARCHAR(32) NOT NULL UNIQUE,
+  workload_items  JSON,
+  material_cost   DECIMAL(14,2) NOT NULL DEFAULT 0,
+  team_cost       DECIMAL(14,2) NOT NULL DEFAULT 0,
+  change_amount   DECIMAL(14,2) NOT NULL DEFAULT 0,
+  other_amount    DECIMAL(14,2) NOT NULL DEFAULT 0,
+  total_amount    DECIMAL(14,2) NOT NULL,
+  status          VARCHAR(16) NOT NULL DEFAULT 'draft',
+  approval_id     BIGINT UNSIGNED,
+  payment_req_id  BIGINT UNSIGNED,
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_by      BIGINT UNSIGNED,
+  updated_at      DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  deleted_at      DATETIME,
+  INDEX idx_eng (engineering_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS acceptance_records (

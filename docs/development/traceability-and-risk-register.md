@@ -10,7 +10,7 @@
 | REQ-004 | 客户摧龙六式 | `08-module-breakdown.md` | `page-database-mapping.md`、`database-schema-business.md` | 客户档案、拜访、交接包完整 |
 | REQ-005 | 项目管理 | `08-module-breakdown.md` | `database-schema-business.md` | 立项、计划、成本、文档闭环 |
 | REQ-006 | 运维管理 | `08-module-breakdown.md` | `api-specification.md`、`reporting-requirements.md` | SLA、工单、备件、知识库闭环 |
-| REQ-007 | 工程管理 | `08-module-breakdown.md` | `database-schema-business.md` | 施工计划、变更签证、验收交付 |
+| REQ-007 | 工程管理 | `08-module-breakdown.md` | `database-schema-business.md`、`engineering-construction-design.md` | 施工团队、进场、领料、日志、隐蔽验收、变更签证、验收交付 |
 | REQ-008 | 协作团队管理 | `08-module-breakdown.md` | `database-schema-extended.md`、`role-permission-matrix.md` | 团队派工、执行记录、评价、结算 |
 | REQ-009 | 供应链采购管理 | `08-module-breakdown.md` | `api-specification.md`、`business-rules.md` | 询价、竞价、比价、一键下单 |
 | REQ-010 | 库存管理 | `08-module-breakdown.md` | `business-rules.md` | 库存流水计算，低库存预警 |
@@ -57,6 +57,9 @@
 | RISK-010 | 大文件文档 GitHub 无法预览 | 低 | 已拆分 docs/requirements 和目录页 | 已缓解 |
 | RISK-011 | 外部协作账号访问内部资料 | 高 | 独立账号类型、最小权限、数据范围测试 | 开放 |
 | RISK-012 | 合同/财务数据误删除 | 高 | 软删除，审批完成数据禁止物理删除 | 开放 |
+| RISK-013 | 工程现场领料与实际使用不一致 | 中 | 领料、签收、使用、退料分开记录，验收前核对 | 开放 |
+| RISK-014 | 隐蔽工程未验收即覆盖 | 高 | 隐蔽验收为前置条件，不通过禁止进入下一阶段 | 开放 |
+| RISK-015 | 外部施工团队进入涉密现场未授权 | 高 | 施工团队进场前校验涉密授权和知悉范围 | 开放 |
 
 ## 4. 待确认事项
 

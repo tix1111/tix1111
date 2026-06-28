@@ -48,10 +48,11 @@
 16. [docs/development/data-governance-and-migration.md](./docs/development/data-governance-and-migration.md)：数据治理、迁移与发布方案。
 17. [docs/development/traceability-and-risk-register.md](./docs/development/traceability-and-risk-register.md)：需求追溯矩阵与风险清单。
 18. [docs/development/security-threat-model.md](./docs/development/security-threat-model.md)：安全威胁模型。
-19. [sql/schema.sql](./sql/schema.sql)：完整建表脚本。
-20. [sql/init.sql](./sql/init.sql)：SQL 初始化脚本（字典、密级、参数、初始账号）。
-21. [sql/seed_modules_menus_permissions.sql](./sql/seed_modules_menus_permissions.sql)：模块、菜单和权限点种子数据。
-22. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
+19. [docs/development/engineering-construction-design.md](./docs/development/engineering-construction-design.md)：工程施工全流程专项设计。
+20. [sql/schema.sql](./sql/schema.sql)：完整建表脚本。
+21. [sql/init.sql](./sql/init.sql)：SQL 初始化脚本（字典、密级、参数、初始账号）。
+22. [sql/seed_modules_menus_permissions.sql](./sql/seed_modules_menus_permissions.sql)：模块、菜单和权限点种子数据。
+23. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
 
 ## 查看说明
 

@@ -461,6 +461,112 @@ CREATE TABLE engineering_change_orders (
 ) ENGINE=InnoDB;
 ```
 
+## 17. 工程施工团队 `engineering_team_members`
+
+```sql
+CREATE TABLE engineering_team_members (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  team_id         BIGINT UNSIGNED COMMENT '协作团队 ID',
+  member_id       BIGINT UNSIGNED COMMENT '协作团队成员 ID',
+  employee_id     BIGINT UNSIGNED COMMENT '内部员工 ID',
+  role            VARCHAR(32) NOT NULL COMMENT 'captain/worker/safety/quality/document',
+  skill_tags      TEXT COMMENT '技能标签（JSON）',
+  entry_status    VARCHAR(16) NOT NULL DEFAULT 'pending' COMMENT 'pending/entered/exited',
+  entered_at      DATETIME,
+  exited_at       DATETIME,
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at      DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_eng_member (engineering_id, member_id, employee_id)
+) ENGINE=InnoDB;
+```
+
+## 18. 工程进场记录 `engineering_site_entries`
+
+```sql
+CREATE TABLE engineering_site_entries (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  entry_date      DATETIME NOT NULL COMMENT '进场时间',
+  member_ids      TEXT COMMENT '到场施工成员IDs（JSON）',
+  site_condition  TEXT COMMENT '现场条件：水电、网络、场地、许可等',
+  safety_briefing TINYINT NOT NULL DEFAULT 0 COMMENT '是否完成安全交底',
+  customer_confirm_user VARCHAR(128) COMMENT '客户现场确认人',
+  photo_ids       TEXT COMMENT '进场照片附件IDs（JSON）',
+  remark          TEXT,
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+```
+
+## 19. 工程质量安全问题 `engineering_quality_issues`
+
+```sql
+CREATE TABLE engineering_quality_issues (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  issue_no        VARCHAR(32) NOT NULL UNIQUE,
+  issue_type      VARCHAR(32) NOT NULL COMMENT 'quality/safety/hidden_danger/accident',
+  severity        VARCHAR(16) NOT NULL COMMENT 'normal/serious/critical',
+  description     TEXT NOT NULL,
+  responsible_id  BIGINT UNSIGNED COMMENT '整改责任人',
+  deadline        DATE,
+  rectification   TEXT COMMENT '整改说明',
+  review_result   VARCHAR(16) COMMENT 'pass/fail',
+  reviewer_id     BIGINT UNSIGNED,
+  reviewed_at     DATETIME,
+  status          VARCHAR(16) NOT NULL DEFAULT 'open' COMMENT 'open/rectifying/reviewing/closed',
+  photo_ids       TEXT,
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at      DATETIME ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+```
+
+## 20. 隐蔽工程验收 `engineering_hidden_acceptance`
+
+```sql
+CREATE TABLE engineering_hidden_acceptance (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  stage_name      VARCHAR(128) NOT NULL COMMENT '隐蔽阶段名称',
+  check_items     JSON NOT NULL COMMENT '验收检查项',
+  result          VARCHAR(16) NOT NULL COMMENT 'pass/conditional/fail',
+  acceptor_ids    TEXT COMMENT '验收人IDs（JSON）',
+  photo_ids       TEXT COMMENT '验收照片附件IDs（JSON）',
+  issues          TEXT COMMENT '问题说明',
+  rectification_required TINYINT NOT NULL DEFAULT 0,
+  reviewed_at     DATETIME,
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+```
+
+## 21. 工程结算 `engineering_settlements`
+
+```sql
+CREATE TABLE engineering_settlements (
+  id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  engineering_id  BIGINT UNSIGNED NOT NULL,
+  settlement_no   VARCHAR(32) NOT NULL UNIQUE,
+  workload_items  JSON COMMENT '工程量明细',
+  material_cost   DECIMAL(14,2) NOT NULL DEFAULT 0,
+  team_cost       DECIMAL(14,2) NOT NULL DEFAULT 0,
+  change_amount   DECIMAL(14,2) NOT NULL DEFAULT 0,
+  other_amount    DECIMAL(14,2) NOT NULL DEFAULT 0,
+  total_amount    DECIMAL(14,2) NOT NULL,
+  status          VARCHAR(16) NOT NULL DEFAULT 'draft',
+  approval_id     BIGINT UNSIGNED,
+  payment_req_id  BIGINT UNSIGNED COMMENT '关联付款申请',
+  created_by      BIGINT UNSIGNED,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_by      BIGINT UNSIGNED,
+  updated_at      DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  deleted_at      DATETIME
+) ENGINE=InnoDB;
+```
+
 ## 17. 薪酬记录 `salary_records`（原文档缺失，本次补充）
 
 ```sql

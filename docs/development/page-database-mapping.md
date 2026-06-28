@@ -101,12 +101,17 @@
 | 工程列表 | `/api/engineering/items/list.php` | engineering_items | projects、contracts | engineering.view | 工程或零散任务 |
 | 新建工程 | `/api/engineering/items/create.php` | engineering_items | projects | engineering.create | 可从项目创建 |
 | 施工计划 | `/api/engineering/plans/save.php` | engineering_plans | collaboration_assignments、material_requests | engineering.plan.manage | 明确团队和材料需求 |
+| 施工团队 | `/api/engineering/teams/assign.php` | engineering_team_members | collaboration_teams、collaboration_members | engineering.team.assign | 从协作团队组成施工队伍 |
+| 进场管理 | `/api/engineering/site-entry/confirm.php` | engineering_site_entries | engineering_team_members、attachments | engineering.site_entry | 记录人员进场和现场条件 |
+| 领料管理 | `/api/engineering/materials/request.php` | engineering_material_records | material_requests、inventory_records | engineering.material.request | 领料申请、出库、现场签收、退料 |
 | 过程跟踪 | `/api/engineering/progress/list.php` | engineering_logs | engineering_items | engineering.progress | 节点、照片、问题 |
 | 施工日志 | `/api/engineering/logs/submit.php` | engineering_logs | attachments | engineering.log.submit | 每日施工追溯 |
 | 材料设备 | `/api/engineering/materials/list.php` | engineering_material_records | inventory_records、materials | engineering.material.view | 库存负责实物流转 |
 | 质量安全 | `/api/engineering/quality/issues.php` | engineering_quality_issues | todo_items、attachments | engineering.quality.manage | 整改闭环 |
+| 隐蔽验收 | `/api/engineering/hidden-acceptance/submit.php` | engineering_hidden_acceptance | attachments、todo_items | engineering.hidden_acceptance | 覆盖前验收，不通过生成整改 |
 | 变更签证 | `/api/engineering/changes/submit.php` | engineering_change_orders | approvals、project_costs | engineering.change | 影响费用和工期 |
 | 验收交付 | `/api/engineering/acceptance/submit.php` | acceptance_records | training_plans、attachments | engineering.acceptance | 验收和交付资料 |
+| 工程结算 | `/api/engineering/settlements/submit.php` | engineering_settlements | collaboration_settlements、payment_requests、project_costs | engineering.settlement | 验收后结算并进入财务 |
 | 工程报表 | `/api/engineering/reports/summary.php` | engineering_items | engineering_logs、project_costs | engineering.report.view | 进度、成本、验收率 |
 
 ## 9. 协作团队管理
