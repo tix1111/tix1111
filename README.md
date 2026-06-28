@@ -20,8 +20,9 @@
 ├── REQUIREMENTS.md    # 英文文件名可查看版需求文档
 ├── 需求文档.md        # GitHub 可预览的需求文档目录页
 ├── docs/
-│   ├── requirements/  # 按章节拆分的详细需求文档
-│   └── development/   # 开发细则与页面到数据库映射
+│   ├── requirements/  # 按章节拆分的详细需求文档（16个章节）
+│   └── development/   # 开发细则、页面数据库映射、字段定义、工程规范
+├── sql/               # SQL 初始化脚本
 └── 开发总结.md        # 开发记录、变更摘要与后续建议
 ```
 
@@ -32,7 +33,12 @@
 3. [docs/requirements](./docs/requirements)：按章节拆分的详细需求文档。
 4. [docs/development/development-guidelines.md](./docs/development/development-guidelines.md)：开发细则，包含开发顺序、目录结构、API、页面、数据库、审批、附件、日志和涉密规范。
 5. [docs/development/page-database-mapping.md](./docs/development/page-database-mapping.md)：页面到数据库映射，包含页面、API、主表、关联表和权限点。
-6. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
+6. [docs/development/database-schema-base.md](./docs/development/database-schema-base.md)：基础表、权限表、审批表完整字段定义。
+7. [docs/development/database-schema-business.md](./docs/development/database-schema-business.md)：员工、客户、项目、合同、财务、工单、工程等核心业务表字段。
+8. [docs/development/database-schema-extended.md](./docs/development/database-schema-extended.md)：物料、库存、供应商、培训、党建、涉密、应收、预算等扩展表字段。
+9. [docs/development/frontend-and-engineering-specs.md](./docs/development/frontend-and-engineering-specs.md)：错误码、文件安全、前端骨架、实时无刷新、审批引擎、PHP 工具库规范。
+10. [sql/init.sql](./sql/init.sql)：SQL 初始化脚本（建库、字典、密级、参数、初始账号）。
+11. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
 
 ## 查看说明
 
