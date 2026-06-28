@@ -39,8 +39,13 @@
 7. [docs/development/database-schema-business.md](./docs/development/database-schema-business.md)：员工、客户、项目、合同、财务、工单、工程等核心业务表字段。
 8. [docs/development/database-schema-extended.md](./docs/development/database-schema-extended.md)：物料、库存、供应商、培训、党建、涉密、应收、预算等扩展表字段。
 9. [docs/development/frontend-and-engineering-specs.md](./docs/development/frontend-and-engineering-specs.md)：错误码、文件安全、前端骨架、实时无刷新、审批引擎、PHP 工具库规范。
-10. [sql/init.sql](./sql/init.sql)：SQL 初始化脚本（建库、字典、密级、参数、初始账号）。
-11. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
+10. [docs/development/api-specification.md](./docs/development/api-specification.md)：完整 API 接口规格。
+11. [docs/development/business-rules.md](./docs/development/business-rules.md)：编号规则、财务科目、库存计算、定时任务和竞价规则。
+12. [docs/development/deployment-guide.md](./docs/development/deployment-guide.md)：部署与环境配置。
+13. [docs/development/reporting-requirements.md](./docs/development/reporting-requirements.md)：报表统计需求规格。
+14. [sql/schema.sql](./sql/schema.sql)：完整建表脚本。
+15. [sql/init.sql](./sql/init.sql)：SQL 初始化脚本（字典、密级、参数、初始账号）。
+16. [开发总结.md](./开发总结.md)：记录本次文档化工作内容和后续开发建议。
 
 ## 查看说明
 
