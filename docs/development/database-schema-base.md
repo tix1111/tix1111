@@ -387,6 +387,26 @@ CREATE TABLE business_events (
 ) ENGINE=InnoDB;
 ```
 
+## 21.1 事件联动任务 `event_tasks`
+
+```sql
+CREATE TABLE event_tasks (
+  id             BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  event_id       BIGINT UNSIGNED NOT NULL COMMENT '关联 business_events',
+  task_key       VARCHAR(255) NOT NULL UNIQUE COMMENT '幂等键',
+  task_type      VARCHAR(64) NOT NULL COMMENT 'todo/message/cost/update/callback',
+  target_type    VARCHAR(64) COMMENT '目标类型',
+  target_id      BIGINT UNSIGNED COMMENT '目标 ID',
+  status         VARCHAR(16) NOT NULL DEFAULT 'pending' COMMENT 'pending/processing/done/failed',
+  retry_count    TINYINT NOT NULL DEFAULT 0,
+  last_error     TEXT,
+  created_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  processed_at   DATETIME,
+  INDEX idx_event (event_id),
+  INDEX idx_status (status)
+) ENGINE=InnoDB;
+```
+
 ## 22. 审批流程定义 `approval_flows`
 
 ```sql

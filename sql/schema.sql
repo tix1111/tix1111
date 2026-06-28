@@ -331,6 +331,22 @@ CREATE TABLE IF NOT EXISTS business_events (
   INDEX idx_event_type (event_type)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS event_tasks (
+  id             BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  event_id       BIGINT UNSIGNED NOT NULL,
+  task_key       VARCHAR(255) NOT NULL UNIQUE,
+  task_type      VARCHAR(64) NOT NULL,
+  target_type    VARCHAR(64),
+  target_id      BIGINT UNSIGNED,
+  status         VARCHAR(16) NOT NULL DEFAULT 'pending',
+  retry_count    TINYINT NOT NULL DEFAULT 0,
+  last_error     TEXT,
+  created_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  processed_at   DATETIME,
+  INDEX idx_event (event_id),
+  INDEX idx_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- ============================================================
 -- 审批引擎
 -- ============================================================
