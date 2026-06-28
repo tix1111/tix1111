@@ -407,6 +407,25 @@ CREATE TABLE event_tasks (
 ) ENGINE=InnoDB;
 ```
 
+## 21.2 数据一致性检查日志 `consistency_check_logs`
+
+```sql
+CREATE TABLE consistency_check_logs (
+  id             BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  check_type     VARCHAR(64) NOT NULL COMMENT 'inventory/project_cost/approval/engineering/supplier/classified/all',
+  business_type  VARCHAR(64) COMMENT '异常业务类型',
+  business_id    BIGINT UNSIGNED COMMENT '异常业务 ID',
+  message        VARCHAR(1000) NOT NULL COMMENT '异常说明',
+  severity       VARCHAR(16) NOT NULL DEFAULT 'warning' COMMENT 'info/warning/error/critical',
+  status         VARCHAR(16) NOT NULL DEFAULT 'open' COMMENT 'open/ignored/fixed',
+  fixed_by       BIGINT UNSIGNED,
+  fixed_at       DATETIME,
+  created_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_type_status (check_type, status),
+  INDEX idx_business (business_type, business_id)
+) ENGINE=InnoDB;
+```
+
 ## 22. 审批流程定义 `approval_flows`
 
 ```sql

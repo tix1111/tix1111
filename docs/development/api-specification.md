@@ -129,6 +129,38 @@ order_dir     STRING asc / desc
 权限：system.role.view
 ```
 
+### GET `/api/system/events/tasks.php`
+
+```
+参数：status, task_type, event_type, page
+权限：system.event_task.view
+响应：跨模块联动任务列表，用于查看失败、重试、幂等处理状态
+```
+
+### POST `/api/system/events/retry.php`
+
+```
+请求：task_id
+权限：system.event_task.retry
+动作：重试失败的联动任务
+```
+
+### GET `/api/system/consistency/check.php`
+
+```
+参数：type（inventory/project_cost/approval/engineering/supplier/classified/all）
+权限：system.consistency.check
+动作：执行数据一致性检查，写入 consistency_check_logs
+```
+
+### GET `/api/system/consistency/list.php`
+
+```
+参数：check_type, status, severity, page
+权限：system.consistency.view
+响应：一致性检查异常列表
+```
+
 ### POST `/api/system/roles/save.php`
 
 ```

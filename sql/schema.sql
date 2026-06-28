@@ -347,6 +347,21 @@ CREATE TABLE IF NOT EXISTS event_tasks (
   INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS consistency_check_logs (
+  id             BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  check_type     VARCHAR(64) NOT NULL,
+  business_type  VARCHAR(64),
+  business_id    BIGINT UNSIGNED,
+  message        VARCHAR(1000) NOT NULL,
+  severity       VARCHAR(16) NOT NULL DEFAULT 'warning',
+  status         VARCHAR(16) NOT NULL DEFAULT 'open',
+  fixed_by       BIGINT UNSIGNED,
+  fixed_at       DATETIME,
+  created_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_type_status (check_type, status),
+  INDEX idx_business (business_type, business_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- ============================================================
 -- 审批引擎
 -- ============================================================

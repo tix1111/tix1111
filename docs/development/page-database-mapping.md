@@ -26,6 +26,8 @@
 | 动态菜单 | `/api/menus/tree.php` | menus | role_menus、permissions | menu.view | 服务端计算菜单树 |
 | 附件上传 | `/api/files/upload.php` | attachments | classified_objects、operation_logs | file.upload | 附件必须绑定业务类型和业务 ID |
 | 附件下载 | `/api/files/download.php` | attachments | classified_audit_logs、operation_logs | file.download | 涉密附件需额外鉴密 |
+| 联动失败任务 | `/api/system/events/tasks.php` | event_tasks | business_events、operation_logs | system.event_task.view | 查看和重试跨模块联动失败任务 |
+| 数据一致性检查 | `/api/system/consistency/list.php` | consistency_check_logs | operation_logs | system.consistency.view | 查看库存、审批、成本等一致性异常 |
 
 ## 3. 工作台
 
